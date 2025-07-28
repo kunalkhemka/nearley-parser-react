@@ -2,8 +2,8 @@ import grammar from "../../grammar/expression.js";
 import parse from "../../utils/parse.js";
 
 describe("Parser", () => {
-  test('should return true for the expression "2  + 2 = 4"', () => {
-    const input = "2  + 2 = 4";
+  test('should return true for the expression "1  + 2 = 3"', () => {
+    const input = "1  + 2 = 3";
     const result = parse(grammar, input);
     expect(result.result).toBe(true);
   });
@@ -26,6 +26,18 @@ describe("Parser", () => {
     expect(result.result).toBe(true);
   });
 
+  test('should return true for the expression "1 >= 1"', () => {
+    const input = "1 >= 1";
+    const result = parse(grammar, input);
+    expect(result.result).toBe(true);
+  });
+
+  test('should return false for the expression "4 >= 2"', () => {
+    const input = "4 >= 2";
+    const result = parse(grammar, input);
+    expect(result.result).toBe(true);
+  });
+
   test('should return true for the expression "10 / 2 != 6"', () => {
     const input = "10 / 2 != 6";
     const result = parse(grammar, input);
@@ -38,10 +50,22 @@ describe("Parser", () => {
     expect(result.result).toBe(true);
   });
 
-  test('should return false for the expression "2 * (3 + 4) > 14"', () => {
-    const input = "2 * (3 + 4) > 14";
+  test('should return false for the expression "2 + 3 * 2 = 10"', () => {
+    const input = "2 + 3 * 2 = 10";
     const result = parse(grammar, input);
     expect(result.result).toBe(false);
+  });
+
+  test('should return false for the expression "2 * (3 + 4) != 14"', () => {
+    const input = "2 * (3 + 4) != 14";
+    const result = parse(grammar, input);
+    expect(result.result).toBe(false);
+  });
+
+  test('should return true for the expression "1.1 + 2.2 = 3.3"', () => {
+    const input = "1.1 + 2.2 = 3.3";
+    const result = parse(grammar, input);
+    expect(result.result).toBe(true);
   });
 
 });
