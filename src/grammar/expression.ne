@@ -2,6 +2,10 @@
 @{%
 import lexer from "../lexer/lexer.js";
 let ws, eq, neq, leq, geq, lt, gt, plus, minus, times, divide, number, lparen, rparen;
+
+function toFloat(num) {
+  return Number(parseFloat(num).toFixed(2))
+}
 %}
 
 @lexer lexer
@@ -31,15 +35,15 @@ comp_op -> %eq {% d => "=" %}
   | %lt {% d => "<" %}
   | %gt {% d => ">" %}
 
-expr -> expr _ %plus _ term     {% d => d[0] + d[4] %}
-  | expr _ %minus _ term        {% d => d[0] - d[4] %}
-  | term                     {% d => d[0] %}
+expr -> expr _ %plus _ term     {% d => toFloat(d[0] + d[4]) %}
+  | expr _ %minus _ term        {% d => toFloat(d[0] - d[4]) %}
+  | term                     {% d => toFloat(d[0]) %}
 
-term -> term _ %times _ factor  {% d => d[0] * d[4] %}
-   | term _ %divide _ factor    {% d => d[0] / d[4] %}
-   | factor                  {% d => d[0] %}
+term -> term _ %times _ factor  {% d => toFloat(d[0] * d[4]) %}
+    | term _ %divide _ factor    {% d => toFloat(d[0] / d[4]) %}
+    | factor                  {% d => toFloat(d[0]) %}
 
-factor -> %number                {% d => parseFloat(d[0]) %}
-       | %lparen _ comparison _ %rparen {% d => d[2] %}
+factor -> %number                {% d => toFloat(d[0]) %}
+      | %lparen _ comparison _ %rparen {% d => toFloat(d[2]) %}
 
 _ -> %ws:*     {% function(d) {return null } %}
