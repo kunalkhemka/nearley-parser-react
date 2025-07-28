@@ -55,3 +55,9 @@ input[type="button"] {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.ast-container {
+  text-align: left;
+  width: 30%;
+  margin: 0 auto;
+}
