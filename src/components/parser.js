@@ -16,8 +16,9 @@ const Parser = () => {
       setResult(res.result);
       setError(null);
     } else {
-      setError(res.error);
+      setError(res.error.replaceAll(" ", "&nbsp;").replaceAll("\n", "<br />"));
       setResult(null);
+      setResultAST(null);
     }
 
     if (responseAST.success) {
@@ -36,7 +37,7 @@ const Parser = () => {
       <button onClick={parseInput}>Parse</button>
       {result !== null && <p>Result: {JSON.stringify(result)}</p>}
       {resultAST !== null && (
-        <div className="ast-container">
+        <div>
           <pre>{JSON.stringify(resultAST, null, 2)}</pre>
         </div>
       )}
