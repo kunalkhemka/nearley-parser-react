@@ -22,4 +22,5 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `npm run gen`
 
 This will compile the grammar ```*.ne``` file to the corresponding ```.js``` file.
+In the script, update the .ne input file name and the desired .js output file name to match the files in the ```grammar``` directory 
 After the .js file is generated, it is required to manually modify to use ES Modules instead of CommonJS because the react project uses ESM and nearley generates the file using CommonJS which causes integration issues.
